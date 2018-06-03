@@ -1,35 +1,34 @@
 package com.arrays;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 
 public class Student {
 
 	private String name;
-	private int[] marks;
-
-	public Student(String name, int[] marks) {
+	private ArrayList<Integer> marks = new ArrayList<Integer>();
+	
+	public Student(String name, int... marks) {
 		this.name = name;
-		this.marks = marks;
+		for(int mark : marks) {
+			this.marks.add(mark);
+		}
 	}
 
 	public int getNumberOfMarks() {
-		return marks.length;
+		return marks.size();
 	}
 
 	public int getMaxMark() {
-		int maxMarks = marks[0];
-		for(int mark : marks) {
-			if(mark>=maxMarks) {
-				maxMarks = mark;
-			}
-		}
-		return maxMarks;
+		return Collections.max(marks);
 	}
 
 	public BigDecimal getAverageMarks() {
 		BigDecimal average;
-		average = new BigDecimal(getTotalSumOfMarks()).divide(new BigDecimal(marks.length));
+		average = new BigDecimal(getTotalSumOfMarks()).divide(new BigDecimal(marks.size()));
 		
 		return average;
 	}
@@ -43,13 +42,23 @@ public class Student {
 	}
 
 	public int getMinMark() {
-		int minMarks = marks[0];
-		for(int mark : marks) {
-			if(mark<=minMarks) {
-				minMarks = mark;
-			}
-		}
-		return minMarks;
-		}
+		return Collections.min(marks);
+	}
+	
+	@Override
+	public String toString() {
+		return name + marks;
+	}
+
+	public void addNewMark(int newMark) {
+		marks.add(newMark);
+	}
+
+	public void removeMarkAt(int position) {
+		marks.remove(position);
+	}
+
+
+	
 
 }
